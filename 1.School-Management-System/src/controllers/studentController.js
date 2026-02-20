@@ -2,8 +2,8 @@ import db from "../config/db.js";
 
 // Helper function for basic input validation
 const validateStudent = (student) => {
-  const { name, email, phone, class_name } = student;
-  if (!name || !email || !phone || !class_name) {
+  const { name, email, phone, class_id } = student;
+  if (!name || !email || !phone || !class_id) {
     return false;
   }
   return true;
@@ -28,19 +28,21 @@ const getStudents = (req, res) => {
 
 // ADD a new student
 const addStudent = (req, res) => {
-  const { name, email, phone, address, class_name } = req.body;
+  const { name, email, phone, address, class_id } = req.body;
+  console.log(req.body);
+  
 
   // Validate input
-  if (!validateStudent({ name, email, phone, class_name })) {
+  if (!validateStudent({ name, email, phone, class_id })) {
     return res.status(400).json({ message: "Missing required fields ❌" });
   }
 
   const sql =
-    "INSERT INTO students (name, email, phone, address, class_name) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO students (name, email, phone, address, class_id) VALUES (?, ?, ?, ?, ?)";
 
   db.query(
     sql,
-    [name, email, phone, address || "", class_name],
+    [name, email, phone, address || "", class_id],
     (err, result) => {
       if (err) {
         console.error("DB Error:", err);
@@ -56,6 +58,7 @@ const addStudent = (req, res) => {
       }
 
       res.status(201).json({
+        success: true,
         message: "Student added successfully ✅",
         studentId: result.insertId,
       });
@@ -83,5 +86,4 @@ const deleteStudent = (req, res) => {
   });
 };
 
- 
 export { getStudents, addStudent, deleteStudent };
