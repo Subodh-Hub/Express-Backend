@@ -119,6 +119,7 @@ const updateTeacher = (req, res) => {
   );
 };
 
+
 // DELETE TEACHER
 
 const deleteTeacher = (req, res) => {
