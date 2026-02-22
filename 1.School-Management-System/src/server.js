@@ -7,6 +7,7 @@ import classRoutes from "./routes/classRoutes.js";
 import teacherRoutes from "./routes/teacherRoutes.js";
 import subjectRoutes from "./routes/subjectRoutes.js";
 import attendanceRoutes from "./routes/attendanceRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 // Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/classes", classRoutes);
 app.use("/api/teachers", teacherRoutes);
