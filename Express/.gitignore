@@ -1,0 +1,8 @@
+node_modules
+.agents
+.claude
+.devin
+dist
+.env
+.env.*
+!.env.example
